@@ -1,0 +1,82 @@
+{% extends 'kiosk/base.html' %}
+
+{% block title %}Neobyte - Origine des fonds{% endblock %}
+
+{% block content %}
+<div class="text-center max-w-4xl mx-auto">
+    <h1 class="text-3xl font-black text-gray-900 mb-8 tracking-tight">Origine des fonds utilisés (vous pouvez en choisir plusieurs)</h1>
+    
+    <form method="POST" class="space-y-8">
+        {% csrf_token %}
+        <div class="grid grid-cols-3 gap-4">
+            
+            <!-- Option 1 -->
+            <div onclick="toggleCheckbox('opt-salaire')" id="box-opt-salaire" class="bg-gray-100 border-2 border-transparent text-gray-800 p-5 rounded-xl font-bold text-lg cursor-pointer transition-all flex items-center justify-center min-h-[85px] text-center select-none">
+                <input type="checkbox" name="origine" value="salaire" id="opt-salaire" class="hidden">
+                Salaire / revenu d'activité
+            </div>
+
+            <!-- Option 2 -->
+            <div onclick="toggleCheckbox('opt-vente')" id="box-opt-vente" class="bg-gray-100 border-2 border-transparent text-gray-800 p-5 rounded-xl font-bold text-lg cursor-pointer transition-all flex items-center justify-center min-h-[85px] text-center select-none">
+                <input type="checkbox" name="origine" value="vente" id="opt-vente" class="hidden">
+                Vente d'un bien (voiture, appartement...)
+            </div>
+
+            <!-- Option 3 -->
+            <div onclick="toggleCheckbox('opt-heritage')" id="box-opt-heritage" class="bg-gray-100 border-2 border-transparent text-gray-800 p-5 rounded-xl font-bold text-lg cursor-pointer transition-all flex items-center justify-center min-h-[85px] text-center select-none">
+                <input type="checkbox" name="origine" value="heritage" id="opt-heritage" class="hidden">
+                Héritage ou donation
+            </div>
+
+            <!-- Option 4 -->
+            <div onclick="toggleCheckbox('opt-loyer')" id="box-opt-loyer" class="bg-gray-100 border-2 border-transparent text-gray-800 p-5 rounded-xl font-bold text-lg cursor-pointer transition-all flex items-center justify-center min-h-[85px] text-center select-none">
+                <input type="checkbox" name="origine" value="loyer" id="opt-loyer" class="hidden">
+                Revenus locatifs / dividendes
+            </div>
+
+            <!-- Option 5 -->
+            <div onclick="toggleCheckbox('opt-crypto')" id="box-opt-crypto" class="bg-gray-100 border-2 border-transparent text-gray-800 p-5 rounded-xl font-bold text-lg cursor-pointer transition-all flex items-center justify-center min-h-[85px] text-center select-none">
+                <input type="checkbox" name="origine" value="crypto" id="opt-crypto" class="hidden">
+                Revente de crypto-actifs
+            </div>
+
+            <!-- Option 6 -->
+            <div onclick="toggleCheckbox('opt-gains')" id="box-opt-gains" class="bg-gray-100 border-2 border-transparent text-gray-800 p-5 rounded-xl font-bold text-lg cursor-pointer transition-all flex items-center justify-center min-h-[85px] text-center select-none">
+                <input type="checkbox" name="origine" value="gains" id="opt-gains" class="hidden">
+                Gains de jeu ou concours
+            </div>
+
+            <!-- Option 7 (Plein écran) -->
+            <div onclick="toggleCheckbox('opt-autre')" id="box-opt-autre" class="col-span-3 bg-gray-100 border-2 border-transparent text-gray-800 p-4 rounded-xl font-bold text-lg cursor-pointer transition-all flex items-center justify-center select-none">
+                <input type="checkbox" name="origine" value="autre" id="opt-autre" class="hidden">
+                Autre
+            </div>
+        </div>
+
+        <button type="submit" class="bg-[#00a896] hover:bg-[#008f80] text-white font-bold text-xl py-4 px-14 rounded-full shadow-lg transition transform active:scale-95">
+            Continuer
+        </button>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function toggleCheckbox(id) {
+        const checkbox = document.getElementById(id);
+        const box = document.getElementById('box-' + id);
+        
+        // Inverse l'état de la checkbox
+        checkbox.checked = !checkbox.checked;
+        
+        // Modifie le style visuel de la case
+        if (checkbox.checked) {
+            box.classList.remove('bg-gray-100', 'border-transparent');
+            box.classList.add('bg-teal-50', 'border-[#00a896]');
+        } else {
+            box.classList.remove('bg-teal-50', 'border-[#00a896]');
+            box.classList.add('bg-gray-100', 'border-transparent');
+        }
+    }
+</script>
+{% endblock %}

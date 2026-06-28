@@ -1,0 +1,15 @@
+{% extends 'kiosk/base.html' %}
+{% block content %}
+<div class="text-center max-w-md mx-auto">
+    <h1 class="text-3xl font-black text-gray-900 mb-6">Analyse de la pièce</h1>
+    
+    <!-- Loader rotatif dynamique turquoise -->
+    <div class="w-20 h-20 border-4 border-gray-200 border-t-[#00a896] rounded-full animate-spin mx-auto mb-6"></div>
+    <p class="text-gray-500 font-bold animate-pulse">Vérification de l'authenticité du document en cours...</p>
+
+    <!-- Redirection automatique après analyse artificielle -->
+    <script>
+        setTimeout(() => { window.location.href = "{% url 'customer_details' %}"; }, 3000);
+    </script>
+</div>
+{% endblock %}

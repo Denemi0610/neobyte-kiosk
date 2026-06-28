@@ -1,0 +1,21 @@
+{% extends 'kiosk/base.html' %}
+{% block content %}
+<div class="text-center max-w-4xl mx-auto">
+    <h1 class="text-4xl font-black text-gray-900 mb-10">Sélectionnez la crypto-monnaie</h1>
+    <form method="POST" class="grid grid-cols-3 gap-6">
+        {% csrf_token %}
+        <button type="submit" name="crypto" value="BTC" class="border-2 border-transparent bg-gray-50 hover:border-[#00a896] p-6 rounded-2xl transition flex flex-col items-center gap-3 shadow-sm">
+            <span class="text-4xl">₿</span>
+            <span class="font-black text-xl text-gray-900">Bitcoin (BTC)</span>
+        </button>
+        <button type="submit" name="crypto" value="ETH" class="border-2 border-transparent bg-gray-50 hover:border-[#00a896] p-6 rounded-2xl transition flex flex-col items-center gap-3 shadow-sm">
+            <span class="text-4xl">♦</span>
+            <span class="font-black text-xl text-gray-900">Ethereum (ETH)</span>
+        </button>
+        <button type="submit" name="crypto" value="USDT" class="border-2 border-transparent bg-gray-50 hover:border-[#00a896] p-6 rounded-2xl transition flex flex-col items-center gap-3 shadow-sm">
+            <span class="text-4xl">₮</span>
+            <span class="font-black text-xl text-gray-900">Tether (USDT)</span>
+        </button>
+    </form>
+</div>
+{% endblock %}

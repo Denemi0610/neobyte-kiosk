@@ -1,0 +1,49 @@
+{% extends 'kiosk/base.html' %}
+
+{% block title %}Neobyte - Situation Professionnelle{% endblock %}
+
+{% block content %}
+<div class="text-center max-w-4xl mx-auto">
+    <h1 class="text-3xl font-black text-gray-900 mb-8 tracking-tight">Situation Professionnelle</h1>
+    
+    <form method="POST" id="form-situation" class="space-y-8">
+        {% csrf_token %}
+        <div class="grid grid-cols-3 gap-4">
+            {% for value, label in shadow_options %}
+                <!-- Les options sont rendues dynamiquement ou statiquement -->
+            {% endfor %}
+            <label class="bg-gray-100 p-6 rounded-xl font-bold text-lg cursor-pointer hover:bg-gray-200 transition flex items-center justify-center min-h-[90px] text-center" onclick="submitForm('salarie')">
+                <input type="radio" name="situation" value="salarie" class="hidden"> Salarié
+            </label>
+            <label class="bg-gray-100 p-6 rounded-xl font-bold text-base cursor-pointer hover:bg-gray-200 transition flex items-center justify-center min-h-[90px] text-center" onclick="submitForm('independant')">
+                <input type="radio" name="situation" value="independant" class="hidden"> Travailleur indépendant / Auto-entrepreneur
+            </label>
+            <label class="bg-gray-100 p-6 rounded-xl font-bold text-lg cursor-pointer hover:bg-gray-200 transition flex items-center justify-center min-h-[90px] text-center" onclick="submitForm('fonctionnaire')">
+                <input type="radio" name="situation" value="fonctionnaire" class="hidden"> Fonctionnaire
+            </label>
+            <label class="bg-gray-100 p-6 rounded-xl font-bold text-lg cursor-pointer hover:bg-gray-200 transition flex items-center justify-center min-h-[90px] text-center" onclick="submitForm('etudiant')">
+                <input type="radio" name="situation" value="etudiant" class="hidden"> Étudiant
+            </label>
+            <label class="bg-gray-100 p-6 rounded-xl font-bold text-lg cursor-pointer hover:bg-gray-200 transition flex items-center justify-center min-h-[90px] text-center" onclick="submitForm('retraite')">
+                <input type="radio" name="situation" value="retraite" class="hidden"> Retraité
+            </label>
+            <label class="bg-gray-100 p-6 rounded-xl font-bold text-lg cursor-pointer hover:bg-gray-200 transition flex items-center justify-center min-h-[90px] text-center" onclick="submitForm('sans_activite')">
+                <input type="radio" name="situation" value="sans_activite" class="hidden"> Sans activité
+            </label>
+            <label class="col-span-3 bg-gray-100 p-4 rounded-xl font-bold text-lg cursor-pointer hover:bg-gray-200 transition flex items-center justify-center" onclick="submitForm('autre')">
+                <input type="radio" name="situation" value="autre" class="hidden"> Autre
+            </label>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function submitForm(value) {
+        const radios = document.getElementsByName('situation');
+        radios.forEach(radio => { if(radio.value === value) radio.checked = true; });
+        document.getElementById('form-situation').submit();
+    }
+</script>
+{% endblock %}

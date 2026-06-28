@@ -1,0 +1,150 @@
+{% extends 'kiosk/base.html' %}
+
+{% block back_button %}
+<!-- Pas de retour arrière à la fin de la transaction pour préserver la sécurité de la borne -->
+{% endblock %}
+
+{% block content %}
+<div class="print-container">
+    <!-- En-tête de Statut (image f18_2.png) -->
+    <div class="flex items-center gap-4 mb-8 no-print">
+        <div class="w-14 h-14 bg-[#00a896] text-white rounded-full flex items-center justify-center text-3xl font-bold shadow-md">
+            ✓
+        </div>
+        <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight">Votre Transaction Est Terminée</h1>
+    </div>
+
+    <!-- Layout à deux colonnes (Récapitulatif à gauche, Action à droite) -->
+    <div class="flex flex-col md:flex-row justify-between items-center gap-10">
+        
+        <!-- Boite du Ticket / Reçu (S'adapte au format ticket lors de l'impression) -->
+        <div class="bg-slate-50 rounded-2xl p-6 w-full md:w-1/2 space-y-4 border border-slate-100 print-full-width">
+            
+            <!-- En-tête du ticket visible UNIQUEMENT à l'impression -->
+            <div class="hidden print-header flex-col items-center text-center mb-4 border-b-2 border-dashed border-slate-300 pb-4">
+                <span class="text-xl font-black tracking-tight text-slate-900">NEOBYTE KIOSK</span>
+                <span class="text-xs text-slate-500">Merci pour votre confiance</span>
+            </div>
+
+            <div class="flex justify-between items-center border-b border-slate-200 pb-2 print-dashed">
+                <span class="text-gray-500 font-medium print-text-gray">Montant Inséré</span>
+                <span class="font-bold text-slate-900 text-lg">{{ montant_insere }}</span>
+            </div>
+            <div class="flex justify-between items-center border-b border-slate-200 pb-2 print-dashed">
+                <span class="text-gray-500 font-medium print-text-gray">BTC envoyé</span>
+                <span class="font-bold text-slate-900">{{ btc_envoye }}</span>
+            </div>
+            <div class="flex justify-between items-center border-b border-slate-200 pb-2 print-dashed">
+                <span class="text-gray-500 font-medium print-text-gray">Frais</span>
+                <span class="font-medium text-slate-700">{{ frais }}</span>
+            </div>
+            <div class="flex justify-between items-start border-b border-slate-200 pb-2 gap-4 print-dashed">
+                <span class="text-gray-500 font-medium shrink-0 print-text-gray">Adresse de réception</span>
+                <span class="font-mono text-sm text-slate-900 text-right break-all max-w-[70%]">{{ adresse_reception }}</span>
+            </div>
+            <div class="flex justify-between items-start border-b border-slate-200 pb-2 gap-4 print-dashed">
+                <span class="text-gray-500 font-medium shrink-0 print-text-gray">Référence blockchain</span>
+                <span class="font-mono text-sm text-slate-900 text-right break-all max-w-[70%]">{{ ref_blockchain }}</span>
+            </div>
+            <div class="flex justify-between items-center pt-1">
+                <span class="text-gray-500 font-medium print-text-gray">Date / Heure</span>
+                <span class="font-medium text-slate-700">{{ date_heure }}</span>
+            </div>
+
+            <!-- Pied de ticket visible UNIQUEMENT à l'impression -->
+            <div class="hidden print-footer text-center text-[11px] text-slate-500 pt-4 border-t-2 border-dashed border-slate-300 mt-4">
+                Support : support@neobyte.fr<br>
+                Conservez ce reçu précieusement.
+            </div>
+        </div>
+
+        <!-- Colonne Action Droite -->
+        <div class="w-full md:w-5/12 text-center md:text-left space-y-6 no-print">
+            <p class="text-xl font-bold text-slate-800 leading-snug">
+                Votre reçu est disponible dans votre boite mail
+            </p>
+            <form method="POST" class="w-full">
+                {% csrf_token %}
+                <button type="submit" name="imprimer" class="w-full bg-[#00a896] hover:bg-[#009685] text-white font-bold py-4 px-8 rounded-2xl text-xl shadow-lg transition-all transform hover:scale-105 cursor-pointer text-center block">
+                    Imprimer le reçu
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Surcharge du texte de footer d'assistance (image f18_2.png) -->
+{% block footer_text %}
+<div class="no-print text-sm font-medium text-slate-400 mt-6 border-t border-slate-100 pt-4">
+    Assistance : support@neobyte.fr | +33 1 23 45 67 89
+</div>
+{% endblock %}
+
+<style>
+    @media print {
+        /* 1. Force la réinitialisation totale du fond de page */
+        html, body {
+            background-color: #ffffff !important;
+            background-image: none !important;
+            color: #1e293b !important;
+            display: block !important;
+            min-height: 0 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* 2. On masque de manière invisible tout l'arbre HTML */
+        body * {
+            visibility: hidden !important;
+        }
+
+        /* 3. On remet en visibilité la boîte du reçu et ses éléments internes */
+        .print-full-width, .print-full-width * {
+            visibility: visible !important;
+        }
+
+        /* 4. Formatage du reçu en rouleau thermique 80mm centré */
+        .print-full-width {
+            position: relative !important;
+            margin: 30px auto !important;
+            left: 0 !important;
+            top: 0 !important;
+            width: 80mm !important;
+            max-width: 100% !important;
+            border: 1px solid #cbd5e1 !important;
+            background-color: #ffffff !important;
+            padding: 20px !important;
+            border-radius: 8px !important;
+            box-shadow: none !important;
+            display: block !important;
+        }
+
+        /* 5. Force l'affichage des en-têtes cachés sur le papier */
+        .print-header {
+            display: flex !important;
+        }
+        .print-footer {
+            display: block !important;
+        }
+
+        /* Ajustements cosmétiques pour les séparateurs sur papier */
+        .print-dashed {
+            border-style: dashed !important;
+            border-color: #cbd5e1 !important;
+        }
+        .print-text-gray {
+            color: #64748b !important;
+        }
+    }
+</style>
+
+{% block extra_js %}
+{% if declencher_impression %}
+<script>
+    window.onload = function() {
+        window.print();
+    };
+</script>
+{% endif %}
+{% endblock %}
+{% endblock %}

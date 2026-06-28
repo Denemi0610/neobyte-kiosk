@@ -1,0 +1,16 @@
+{% extends 'kiosk/base.html' %}
+{% block content %}
+<div class="max-w-md mx-auto text-center">
+    <h1 class="text-3xl font-black text-gray-900 mb-8">Saisissez votre montant</h1>
+    <form method="POST" class="space-y-6">
+        {% csrf_token %}
+        <div class="flex items-center justify-center border-b-4 border-slate-900 pb-2">
+            <input type="number" name="montant" placeholder="0" min="10" max="10000" class="text-5xl font-black text-center w-full focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" autofocus>
+            <span class="text-4xl font-black ml-2">€</span>
+        </div>
+        <button type="submit" class="w-full bg-[#00a896] hover:bg-[#008f80] text-white font-black text-xl py-4 rounded-full shadow-lg transition">
+            Valider le montant
+        </button>
+    </form>
+</div>
+{% endblock %}

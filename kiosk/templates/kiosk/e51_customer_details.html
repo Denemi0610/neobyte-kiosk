@@ -1,0 +1,129 @@
+{% extends 'kiosk/base.html' %}
+
+{% block back_button %}
+<!-- Optionnel : On peut laisser vide ou mettre un bouton d'annulation spécifique si nécessaire -->
+{% endblock %}
+
+{% block content %}
+<form method="POST" id="customer-details-form" class="space-y-8">
+    {% csrf_token %}
+
+    <!-- SECTION 1 : SITUATION PROFESSIONNELLE (image f10_2.png) -->
+    <div class="space-y-4">
+        <h2 class="text-center text-3xl font-extrabold text-slate-900">Situation Professionnelle</h2>
+        <div class="grid grid-cols-3 gap-4">
+            <div class="selectable-box bg-slate-50 border-2 border-transparent p-6 text-center font-semibold text-lg rounded-2xl cursor-pointer transition-all select-none hover:bg-slate-100" onclick="selectRadio(this, 'situation_pro')">
+                <input type="radio" name="situation_pro" value="Salaré" class="hidden"> Salarié
+            </div>
+            <div class="selectable-box bg-slate-50 border-2 border-transparent p-6 text-center font-semibold text-lg rounded-2xl cursor-pointer transition-all select-none hover:bg-slate-100" onclick="selectRadio(this, 'situation_pro')">
+                <input type="radio" name="situation_pro" value="Indépendant" class="hidden"> Travailleur indépendant / Auto-entrepreneur
+            </div>
+            <div class="selectable-box bg-slate-50 border-2 border-transparent p-6 text-center font-semibold text-lg rounded-2xl cursor-pointer transition-all select-none hover:bg-slate-100" onclick="selectRadio(this, 'situation_pro')">
+                <input type="radio" name="situation_pro" value="Fonctionnaire" class="hidden"> Fonctionnaire
+            </div>
+            <div class="selectable-box bg-slate-50 border-2 border-transparent p-6 text-center font-semibold text-lg rounded-2xl cursor-pointer transition-all select-none hover:bg-slate-100" onclick="selectRadio(this, 'situation_pro')">
+                <input type="radio" name="situation_pro" value="Étudiant" class="hidden"> Étudiant
+            </div>
+            <div class="selectable-box bg-slate-50 border-2 border-transparent p-6 text-center font-semibold text-lg rounded-2xl cursor-pointer transition-all select-none hover:bg-slate-100" onclick="selectRadio(this, 'situation_pro')">
+                <input type="radio" name="situation_pro" value="Retraité" class="hidden"> Retraité
+            </div>
+            <div class="selectable-box bg-slate-50 border-2 border-transparent p-6 text-center font-semibold text-lg rounded-2xl cursor-pointer transition-all select-none hover:bg-slate-100" onclick="selectRadio(this, 'situation_pro')">
+                <input type="radio" name="situation_pro" value="Sans activité" class="hidden"> Sans activité
+            </div>
+            <div class="selectable-box col-span-3 bg-slate-50 border-2 border-transparent p-6 text-center font-semibold text-lg rounded-2xl cursor-pointer transition-all select-none hover:bg-slate-100" onclick="selectRadio(this, 'situation_pro')">
+                <input type="radio" name="situation_pro" value="Autre" class="hidden"> Autre
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 2 : REVENU MENSUEL NET (image f10_2.png & f11_2.png) -->
+    <div class="space-y-4 pt-4">
+        <h2 class="text-center text-3xl font-extrabold text-slate-900">Revenu mensuel net</h2>
+        <div class="grid grid-cols-3 gap-4">
+            <div class="selectable-box bg-slate-50 border-2 border-transparent p-6 text-center font-semibold text-lg rounded-2xl cursor-pointer transition-all select-none hover:bg-slate-100" onclick="selectRadio(this, 'revenu_mensuel')">
+                <input type="radio" name="revenu_mensuel" value="<1000" class="hidden"> Moins de 1 000 €
+            </div>
+            <div class="selectable-box bg-slate-50 border-2 border-transparent p-6 text-center font-semibold text-lg rounded-2xl cursor-pointer transition-all select-none hover:bg-slate-100" onclick="selectRadio(this, 'revenu_mensuel')">
+                <input type="radio" name="revenu_mensuel" value="1000-2500" class="hidden"> 1 000 – 2 500 €
+            </div>
+            <div class="selectable-box bg-slate-50 border-2 border-transparent p-6 text-center font-semibold text-lg rounded-2xl cursor-pointer transition-all select-none hover:bg-slate-100" onclick="selectRadio(this, 'revenu_mensuel')">
+                <input type="radio" name="revenu_mensuel" value="2500-5000" class="hidden"> 2 500 – 5 000 €
+            </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="selectable-box bg-slate-50 border-2 border-transparent p-6 text-center font-semibold text-lg rounded-2xl cursor-pointer transition-all select-none hover:bg-slate-100" onclick="selectRadio(this, 'revenu_mensuel')">
+                <input type="radio" name="revenu_mensuel" value="5000-10000" class="hidden"> 5 000 – 10 000 €
+            </div>
+            <div class="selectable-box bg-slate-50 border-2 border-transparent p-6 text-center font-semibold text-lg rounded-2xl cursor-pointer transition-all select-none hover:bg-slate-100" onclick="selectRadio(this, 'revenu_mensuel')">
+                <input type="radio" name="revenu_mensuel" value=">10000" class="hidden"> Plus de 10 000 €
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 3 : ORIGINE DES FONDS (image f11_2.png) -->
+    <div class="space-y-4 pt-4">
+        <h2 class="text-center text-3xl font-extrabold text-slate-900">Origine des fonds utilisés <span class="text-sm font-medium text-gray-500 block">(vous pouvez en choisir plusieurs)</span></h2>
+        <div class="grid grid-cols-3 gap-4">
+            <div class="selectable-box bg-slate-50 border-2 border-transparent p-6 text-center font-semibold text-lg rounded-2xl cursor-pointer transition-all select-none hover:bg-slate-100" onclick="toggleCheckbox(this)">
+                <input type="checkbox" name="origine_fonds" value="Salaire" class="hidden"> Salaire / revenu d'activité
+            </div>
+            <div class="selectable-box bg-slate-50 border-2 border-transparent p-6 text-center font-semibold text-lg rounded-2xl cursor-pointer transition-all select-none hover:bg-slate-100" onclick="toggleCheckbox(this)">
+                <input type="checkbox" name="origine_fonds" value="Vente de bien" class="hidden"> Vente d'un bien (voiture, appartement...)
+            </div>
+            <div class="selectable-box bg-slate-50 border-2 border-transparent p-6 text-center font-semibold text-lg rounded-2xl cursor-pointer transition-all select-none hover:bg-slate-100" onclick="toggleCheckbox(this)">
+                <input type="checkbox" name="origine_fonds" value="Héritage" class="hidden"> Héritage ou donation
+            </div>
+            <div class="selectable-box bg-slate-50 border-2 border-transparent p-6 text-center font-semibold text-lg rounded-2xl cursor-pointer transition-all select-none hover:bg-slate-100" onclick="toggleCheckbox(this)">
+                <input type="checkbox" name="origine_fonds" value="Revenus locatifs" class="hidden"> Revenus locatifs / dividendes
+            </div>
+            <div class="selectable-box bg-slate-50 border-2 border-transparent p-6 text-center font-semibold text-lg rounded-2xl cursor-pointer transition-all select-none hover:bg-slate-100" onclick="toggleCheckbox(this)">
+                <input type="checkbox" name="origine_fonds" value="Revente crypto" class="hidden"> Revente de crypto-actifs
+            </div>
+            <div class="selectable-box bg-slate-50 border-2 border-transparent p-6 text-center font-semibold text-lg rounded-2xl cursor-pointer transition-all select-none hover:bg-slate-100" onclick="toggleCheckbox(this)">
+                <input type="checkbox" name="origine_fonds" value="Gains de jeu" class="hidden"> Gains de jeu ou concours
+            </div>
+            <div class="selectable-box col-span-3 bg-slate-50 border-2 border-transparent p-6 text-center font-semibold text-lg rounded-2xl cursor-pointer transition-all select-none hover:bg-slate-100" onclick="toggleCheckbox(this)">
+                <input type="checkbox" name="origine_fonds" value="Autre" class="hidden"> Autre
+            </div>
+        </div>
+    </div>
+
+    <!-- ACTION BUTTON -->
+    <div class="flex justify-center pt-6">
+        <button type="submit" class="bg-[#00a896] hover:bg-[#009685] text-white font-bold py-4 px-20 rounded-full text-xl shadow-lg transition-all transform hover:scale-105 cursor-pointer">
+            Continuer
+        </button>
+    </div>
+</form>
+
+<script>
+    function selectRadio(element, inputName) {
+        // Enlever la sélection des frères
+        const siblings = element.parentNode.querySelectorAll('.selectable-box');
+        siblings.forEach(box => {
+            const input = box.querySelector(`input[name="${inputName}"]`);
+            if(input) {
+                box.classList.remove('border-[#00a896]', 'bg-teal-50/50', 'text-[#00a896]');
+                box.classList.add('bg-slate-50', 'text-slate-800');
+            }
+        });
+        // Activer l'élément courant
+        element.classList.remove('bg-slate-50', 'text-slate-800');
+        element.classList.add('border-[#00a896]', 'bg-teal-50/50', 'text-[#00a896]');
+        element.querySelector('input').checked = true;
+    }
+
+    function toggleCheckbox(element) {
+        const checkbox = element.querySelector('input[type="checkbox"]');
+        checkbox.checked = !checkbox.checked;
+        
+        if (checkbox.checked) {
+            element.classList.remove('bg-slate-50', 'text-slate-800');
+            element.classList.add('border-[#00a896]', 'bg-teal-50/50', 'text-[#00a896]');
+        } else {
+            element.classList.remove('border-[#00a896]', 'bg-teal-50/50', 'text-[#00a896]');
+            element.classList.add('bg-slate-50', 'text-slate-800');
+        }
+    }
+</script>
+{% endblock %}

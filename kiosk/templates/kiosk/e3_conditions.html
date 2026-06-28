@@ -1,0 +1,18 @@
+{% extends 'kiosk/base.html' %}
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <h1 class="text-3xl font-black text-gray-900 mb-6 text-center">Conditions Générales d'Utilisation</h1>
+    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 h-64 overflow-y-scroll text-sm text-gray-600 space-y-4 mb-6 shadow-inner">
+        <p class="font-bold">1. Acceptation des risques liés aux crypto-actifs</p>
+        <p>L'achat de crypto-monnaies présente des risques de perte en capital élevés. Les cours sont extrêmement volatils...</p>
+        <p class="font-bold">2. Lutte contre le blanchiment d'argent (AML/KYC)</p>
+        <p>Conformément aux réglementations financières, Neobyte exige une vérification d'identité pour valider l'opération...</p>
+    </div>
+    <form method="POST" class="text-center">
+        {% csrf_token %}
+        <button type="submit" class="bg-[#00a896] hover:bg-[#008f80] text-white font-black text-lg py-4 px-16 rounded-full shadow-md">
+            J'accepte les conditions
+        </button>
+    </form>
+</div>
+{% endblock %}

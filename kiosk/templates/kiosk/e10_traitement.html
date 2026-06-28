@@ -1,0 +1,24 @@
+{% extends 'kiosk/base.html' %}
+{% block content %}
+<div class="grid grid-cols-12 gap-8 items-center max-w-5xl mx-auto py-6">
+    <div class="col-span-7 space-y-5">
+        <div class="flex items-center gap-3.5">
+            <span class="w-4 h-4 bg-[#00a896] rounded-full inline-block animate-ping"></span>
+            <h1 class="text-4xl font-black text-gray-900 tracking-tight">Traitement en cours...</h1>
+        </div>
+        <p class="text-gray-500 text-lg">Génération de l'ordre d'achat et inscription des blocs réseau.</p>
+    </div>
+    <div class="col-span-5 flex flex-col items-center">
+        <!-- Faux QR Code de transaction -->
+        <div class="bg-white p-4 border-[6px] border-slate-900 rounded-2xl shadow-md w-40 h-40 flex flex-wrap p-2 gap-1 items-center justify-center opacity-70">
+            <div class="w-8 h-8 border-4 border-slate-900 rounded-sm"></div>
+            <div class="w-8 h-8 bg-slate-900 rounded-sm ml-auto"></div>
+            <div class="w-full h-3 bg-slate-900 rounded-sm"></div>
+            <div class="w-8 h-8 bg-slate-900 rounded-sm mr-auto"></div>
+        </div>
+    </div>
+</div>
+<script>
+    setTimeout(() => { window.location.href = "{% url 'fin_transaction' %}"; }, 3500);
+</script>
+{% endblock %}

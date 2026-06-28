@@ -1,0 +1,25 @@
+{% extends 'kiosk/base.html' %}
+{% block content %}
+<div class="grid grid-cols-12 gap-8 items-center max-w-5xl mx-auto">
+    <div class="col-span-5 space-y-6">
+        <h1 class="text-4xl font-black text-gray-900 tracking-tight">Insertion des espèces</h1>
+        <p class="text-gray-400 text-sm">Insérez vos billets physiques directement dans le monnayeur lumineux situé sous l'écran.</p>
+    </div>
+    
+    <!-- Boîtier d'encaissement sombre (f16-3 style) -->
+    <div class="col-span-7 bg-[#003d38] p-10 rounded-3xl text-center text-white shadow-xl">
+        <p class="text-teal-300 text-xs font-black tracking-widest uppercase mb-2">Total détecté :</p>
+        
+        <form method="POST" class="space-y-6">
+            {% csrf_token %}
+            <div class="flex items-center justify-center gap-1 mb-4">
+                <input type="number" name="montant" id="montant-input" value="100" class="bg-transparent text-6xl font-black text-center w-40 focus:outline-none tracking-tight border-b-2 border-dashed border-teal-400">
+                <span class="text-5xl font-black text-teal-300">€</span>
+            </div>
+            <button type="submit" class="w-full bg-[#00a896] hover:bg-[#009181] text-white font-black text-xl py-4 rounded-xl shadow-lg transition">
+                Valider le dépôt
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

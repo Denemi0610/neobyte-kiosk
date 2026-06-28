@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neobyte Kiosk</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        .bg-grid-pattern {
+            background-image: radial-gradient(#e2e8f0 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-800 font-sans min-h-screen flex items-center justify-center p-4">
+
+    <!-- Conteneur de la Borne -->
+    <div class="bg-white w-full max-w-5xl rounded-3xl shadow-2xl p-10 relative min-h-[600px] flex flex-col justify-between overflow-hidden bg-grid-pattern">
+        
+        <!-- Top Bar -->
+        <div class="flex justify-between items-center mb-6 z-10">
+            <div>
+                {% block back_button %}
+                <button onclick="history.back()" class="bg-[#002e2a] text-white font-bold py-2 px-5 rounded-xl hover:bg-slate-800 transition flex items-center gap-2 text-sm cursor-pointer">
+                    ← Retour
+                </button>
+                {% endblock %}
+            </div>
+            <!-- Logo Neobyte -->
+            <div class="flex items-center gap-2 select-none">
+                <div class="relative w-6 h-6 flex flex-col justify-between">
+                    <span class="w-2.5 h-2.5 bg-[#00a896] rounded-sm transform rotate-45 absolute top-0 left-1.5"></span>
+                    <span class="w-2.5 h-2.5 bg-[#00a896] rounded-sm transform rotate-45 absolute bottom-0 left-1.5"></span>
+                    <span class="w-2.5 h-2.5 bg-[#00a896] rounded-sm transform rotate-45 absolute top-1.5 left-0"></span>
+                </div>
+                <span class="text-2xl font-black tracking-tight text-slate-900">Neobyte</span>
+            </div>
+        </div>
+
+        <!-- Contenu central -->
+        <div class="my-auto w-full z-10">
+            {% block content %}{% endblock %}
+        </div>
+
+        <!-- Espace Pied de page / Script -->
+        <div class="w-full text-center text-xs text-gray-400 mt-4 z-10">
+            {% block footer_text %}Borne Neobyte — Sécurisé et instantané{% endblock %}
+        </div>
+    </div>
+
+</body>
+</html>

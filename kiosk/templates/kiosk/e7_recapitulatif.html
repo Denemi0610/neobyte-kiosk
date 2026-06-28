@@ -1,0 +1,17 @@
+{% extends 'kiosk/base.html' %}
+{% block content %}
+<div class="grid grid-cols-12 gap-8 items-center max-w-5xl mx-auto">
+    <div class="col-span-4">
+        <h1 class="text-4xl font-black text-gray-900 leading-tight">Récapitulatif de transaction</h1>
+    </div>
+    <div class="col-span-8 bg-gray-50 p-6 rounded-2xl border border-gray-100 shadow-sm space-y-4">
+        <div class="flex justify-between border-b border-gray-200 pb-3"><span class="text-gray-500 font-bold">Montant à insérer</span><span class="font-black text-gray-900 text-lg">100.00 €</span></div>
+        <div class="flex justify-between border-b border-gray-200 pb-3"><span class="text-gray-500 font-bold">Taux de change</span><span class="font-black text-gray-900 text-lg">1 BTC = 39,200 €</span></div>
+        <div class="flex justify-between"><span class="text-gray-500 font-bold">Montant à recevoir</span><span class="font-black text-emerald-600 text-lg">0.00237 BTC</span></div>
+    </div>
+</div>
+<div class="flex justify-between items-center mt-12 w-full">
+    <a href="{% url 'recapitulatif_details' %}" class="border-2 border-[#00a896] text-[#00a896] font-black py-3 px-8 rounded-xl hover:bg-teal-50 transition">Plus de détails</a>
+    <form method="POST">{% csrf_token %}<button type="submit" class="bg-[#00a896] hover:bg-[#008f80] text-white font-black text-lg py-4 px-12 rounded-full shadow-md">Confirmer</button></form>
+</div>
+{% endblock %}

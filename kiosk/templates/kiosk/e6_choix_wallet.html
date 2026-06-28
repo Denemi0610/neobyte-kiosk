@@ -1,0 +1,15 @@
+{% extends 'kiosk/base.html' %}
+{% block content %}
+<div class="text-center max-w-3xl mx-auto">
+    <h1 class="text-4xl font-black text-gray-900 mb-12">Où envoyer vos jetons ?</h1>
+    <form method="POST" class="grid grid-cols-2 gap-6">
+        {% csrf_token %}
+        <button type="submit" name="choix_wallet" value="scanner" class="bg-[#00a896] hover:bg-[#008f80] text-white font-extrabold text-xl p-8 rounded-2xl shadow-md transition min-h-[140px]">
+            Scanner mon QR Code existant
+        </button>
+        <button type="submit" name="choix_wallet" value="generer" class="bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xl p-8 rounded-2xl shadow-md transition min-h-[140px]">
+            Créer un nouveau portefeuille papier
+        </button>
+    </form>
+</div>
+{% endblock %}

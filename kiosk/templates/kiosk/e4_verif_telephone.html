@@ -1,0 +1,14 @@
+{% extends 'kiosk/base.html' %}
+{% block content %}
+<div class="max-w-md mx-auto text-center">
+    <h1 class="text-3xl font-black text-gray-900 mb-2">Vérification Téléphone</h1>
+    <p class="text-gray-400 mb-8">Entrez votre numéro pour recevoir un code de sécurité</p>
+    <form method="POST" class="space-y-6">
+        {% csrf_token %}
+        <input type="tel" name="telephone" placeholder="+33 6 12 34 56 78" class="w-full text-2xl p-4 bg-gray-50 border-2 border-gray-200 rounded-xl font-bold text-center focus:border-[#00a896] focus:outline-none">
+        <button type="submit" class="w-full bg-[#00a896] hover:bg-[#008f80] text-white font-black text-lg py-4 rounded-full shadow-md">
+            Envoyer le code SMS
+        </button>
+    </form>
+</div>
+{% endblock %}

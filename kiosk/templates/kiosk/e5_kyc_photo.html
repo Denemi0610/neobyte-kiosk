@@ -1,0 +1,21 @@
+{% extends 'kiosk/base.html' %}
+{% block content %}
+<div class="text-center max-w-xl mx-auto">
+    <h1 class="text-3xl font-black text-gray-900 mb-2">Vérification d'identité (KYC)</h1>
+    <p class="text-gray-400 mb-8">Positionnez votre pièce d'identité (CNI ou Passeport) face à la caméra de la borne</p>
+    
+    <!-- Zone simulation caméra grand format -->
+    <div class="w-80 h-52 bg-slate-900 mx-auto rounded-2xl relative flex items-center justify-center border-4 border-dashed border-[#00a896] shadow-md">
+        <div class="text-teal-400 text-sm font-mono animate-pulse">📷 Flux Caméra Actif...</div>
+        <!-- Repère visuel pour centrer le document -->
+        <div class="absolute inset-6 border border-teal-500/30 rounded-lg pointer-events-none"></div>
+    </div>
+    
+    <form method="POST" class="mt-8">
+        {% csrf_token %}
+        <button type="submit" class="bg-[#00a896] hover:bg-[#008f80] text-white font-black text-lg py-4 px-12 rounded-full shadow-md">
+            Prendre la photo
+        </button>
+    </form>
+</div>
+{% endblock %}
