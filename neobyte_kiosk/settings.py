@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-*jdc#ogmib7#w*(c+5v@7#t13cq##(81v$02ixse9gs$0js)#%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*','neotrust.ovh', 'www.neotrust.ovh', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -118,3 +118,6 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+FORCE_SCRIPT_NAME = '/kiosk'
+STATIC_URL = '/kiosk/static/'
