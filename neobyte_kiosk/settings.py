@@ -121,3 +121,4 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 FORCE_SCRIPT_NAME = '/kiosk'
 STATIC_URL = '/kiosk/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
